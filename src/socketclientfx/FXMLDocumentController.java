@@ -41,7 +41,7 @@ public class FXMLDocumentController implements Initializable {
     }
     
     public enum Cmd {
-        LUP, LDOWN, RUP, RDOWN, RESET, SWITCH, SCHANGE, NEXT, GAME11, GAME21
+        LUP, LDOWN, RUP, RDOWN, RESET, SWITCH, SCHANGE, NEXT, GAME11, GAME21, PLLEFT, PLRIGHT
     }
 
     private FxSocketClient socket;
@@ -83,7 +83,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void connect() {
-        socket = new FxSocketClient(new FxSocketListener(), "localhost", Integer.valueOf("55555"), Constants.instance().DEBUG_NONE);
+        socket = new FxSocketClient(new FxSocketListener(), "raspberrypi.local", Integer.valueOf("55555"), Constants.instance().DEBUG_NONE);
         socket.connect();
     }
 
@@ -234,5 +234,17 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleDisconnectButton(ActionEvent event) {
         socket.shutdown();
+    }
+    
+    @FXML
+    private void handleUpdatePlayer1Name(ActionEvent event) {
+        String name = playerOneTxtField.getText();
+        socket.sendMessage(Cmd.PLLEFT.name() + ":" + name);
+    }
+    
+    @FXML
+    private void handleUpdatePlayer2Name(ActionEvent event) {
+        String name = playerTwoTxtField.getText();
+        socket.sendMessage(Cmd.PLRIGHT + ":" + name);
     }
 }

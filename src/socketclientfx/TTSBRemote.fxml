@@ -17,12 +17,17 @@
                <children>
                   <TextField fx:id="playerOneTxtField" promptText="Player 1">
                      <VBox.margin>
-                        <Insets bottom="60.0" left="5.0" right="5.0" top="20.0" />
+                        <Insets left="5.0" right="5.0" top="20.0" />
                      </VBox.margin>
                      <font>
                         <Font size="13.0" />
                      </font>
                   </TextField>
+                  <Button mnemonicParsing="false" onAction="#handleUpdatePlayer1Name" prefHeight="25.0" prefWidth="85.0" text="Update">
+                     <VBox.margin>
+                        <Insets bottom="60.0" top="-10.0" />
+                     </VBox.margin>
+                  </Button>
                   <Button mnemonicParsing="false" onAction="#handleLeftUpButton" prefHeight="57.0" prefWidth="66.0" text="+">
                      <font>
                         <Font size="25.0" />
@@ -45,7 +50,7 @@
                         <Insets top="15.0" />
                      </VBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#handleConnectButton" prefHeight="34.0" prefWidth="90.0" text="Connect">
+                  <Button fx:id="connectButton" mnemonicParsing="false" onAction="#handleConnectButton" prefHeight="34.0" prefWidth="90.0" text="Connect">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -65,9 +70,14 @@
                         <Font size="13.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="60.0" left="5.0" right="5.0" top="20.0" />
+                        <Insets left="5.0" right="5.0" top="20.0" />
                      </VBox.margin>
                   </TextField>
+                  <Button mnemonicParsing="false" onAction="#handleUpdatePlayer2Name" prefHeight="25.0" prefWidth="85.0" text="Update">
+                     <VBox.margin>
+                        <Insets bottom="60.0" top="-10.0" />
+                     </VBox.margin>
+                  </Button>
                   <Button mnemonicParsing="false" onAction="#handleRightUpButton" prefHeight="57.0" prefWidth="66.0" text="+">
                      <font>
                         <Font size="25.0" />
