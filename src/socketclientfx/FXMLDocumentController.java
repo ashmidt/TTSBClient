@@ -29,10 +29,14 @@ public class FXMLDocumentController implements Initializable {
     private Button connectButton;
     @FXML
     private Label connectedLabel;
+    @FXML
+    private Label counterLeftLabel;
+    @FXML
+    private Label counterRightLabel;
 
     private final static Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
-    private boolean connected;
+    private boolean connected, isSwitched = false;
 
     private static final int DEFAULT_RETRY_INTERVAL = 2000; // in milliseconds
 
@@ -160,6 +164,7 @@ public class FXMLDocumentController implements Initializable {
             if (line != null && !line.equals("")) {
                 //rcvdMsgsData.add(line);
                 LOGGER.info(line);
+                UpdateScore(line);
             }
         }
 
@@ -175,24 +180,65 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    private void UpdateScore(String line) {
+        String[] score, msg;
+        if(line != null && line.contains(";")){
+            msg = line.split(";");
+            
+            if(!msg[0].isEmpty() && msg[0].contains(":")){
+                score = msg[0].split(":");
+                if(score[0].equalsIgnoreCase("LP")){
+                    counterLeftLabel.setText(score[1]);
+                }
+            }
+            
+            if(!msg[1].isEmpty() && msg[1].contains(":")){
+                score = msg[1].split(":");
+                if(score[0].equalsIgnoreCase("RP")){
+                    counterRightLabel.setText(score[1]);
+                }
+            }
+        }
+    }
+    
+    private void UpdateScoreByPlayer(Cmd cmd) {
+        socket.sendMessage(cmd.name());
+    }
+    
     @FXML
     private void handleLeftUpButton(ActionEvent event) {
-        socket.sendMessage(Cmd.LUP.name());
+        //socket.sendMessage(Cmd.LUP.name());
+        if(isSwitched)
+            UpdateScoreByPlayer(Cmd.RUP);
+        else
+            UpdateScoreByPlayer(Cmd.LUP);
     }
     
     @FXML
     private void handleLeftDownButton(ActionEvent event) {
-        socket.sendMessage(Cmd.LDOWN.name());
+        //socket.sendMessage(Cmd.LDOWN.name());
+        if(isSwitched)
+            UpdateScoreByPlayer(Cmd.RDOWN);
+        else
+            UpdateScoreByPlayer(Cmd.LDOWN);
     }
     
     @FXML
     private void handleRightUpButton(ActionEvent event) {
-        socket.sendMessage(Cmd.RUP.name());
+        //socket.sendMessage(Cmd.RUP.name());
+        if(isSwitched)
+            UpdateScoreByPlayer(Cmd.LUP);
+        else
+            UpdateScoreByPlayer(Cmd.RUP);
     }
     
     @FXML
     private void handleRightDownButton(ActionEvent event) {
         socket.sendMessage(Cmd.RDOWN.name());
+        if(isSwitched)
+            UpdateScoreByPlayer(Cmd.LDOWN);
+        else
+            UpdateScoreByPlayer(Cmd.RDOWN);
     }
     
     @FXML
@@ -213,6 +259,17 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleSwitchButton(ActionEvent event) {
         socket.sendMessage(Cmd.SWITCH.name());
+        isSwitched = !isSwitched;
+        
+        if(isSwitched){
+            Label lbl = counterLeftLabel;
+            counterLeftLabel = counterRightLabel;
+            counterRightLabel = lbl;
+        }else{
+            Label lbl = counterRightLabel;
+            counterRightLabel = counterLeftLabel;
+            counterLeftLabel = lbl;
+        }
     }
     
     @FXML
