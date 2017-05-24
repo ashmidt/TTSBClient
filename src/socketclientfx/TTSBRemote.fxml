@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="437.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="socketclientfx.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="440.0" prefWidth="450.0" styleClass="mainFxmlClass" stylesheets="@../com/my/view/scoreboard.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="socketclientfx.FXMLDocumentController">
    <children>
-      <HBox layoutX="120.0" layoutY="91.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER" minWidth="450.0">
          <children>
-            <VBox alignment="TOP_CENTER" prefWidth="150.0" spacing="20.0">
+            <VBox alignment="TOP_CENTER" minHeight="440.0" minWidth="150.0" spacing="20.0">
                <children>
-                  <TextField fx:id="playerOneTxtField" promptText="Player 1">
+                  <TextField fx:id="playerOneTxtField" prefWidth="25.0" promptText="Player 1" styleClass="playerName">
                      <VBox.margin>
                         <Insets left="5.0" right="5.0" top="20.0" />
                      </VBox.margin>
@@ -23,17 +23,25 @@
                         <Font size="13.0" />
                      </font>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#handleUpdatePlayer1Name" prefHeight="25.0" prefWidth="85.0" text="Update">
+                  <Button mnemonicParsing="false" onAction="#handleUpdatePlayer1Name" prefHeight="30.0" prefWidth="68.0" text="Update">
                      <VBox.margin>
-                        <Insets bottom="60.0" top="-10.0" />
+                        <Insets bottom="10.0" top="-10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#handleLeftUpButton" prefHeight="57.0" prefWidth="66.0" text="+">
+                  <Label fx:id="counterLeftLabel" alignment="CENTER" prefHeight="30.0" prefWidth="30.0" styleClass="scoreLabel" text="20" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#handleLeftUpButton" prefHeight="68.0" prefWidth="68.0" styleClass="sbGameLabel" text="+" textAlignment="CENTER">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#handleLeftDownButton" prefHeight="57.0" prefWidth="66.0" text="-">
+                  <Button mnemonicParsing="false" onAction="#handleLeftDownButton" prefHeight="68.0" prefWidth="68.0" styleClass="sbGameLabel" text="-" textAlignment="CENTER">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -43,9 +51,9 @@
                   <Insets />
                </HBox.margin>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefWidth="150.0" spacing="20.0">
+            <VBox alignment="TOP_CENTER" minHeight="440.0" minWidth="150.0" spacing="20.0">
                <children>
-                  <Label fx:id="connectedLabel" contentDisplay="CENTER" prefHeight="27.0" prefWidth="90.0" text="Disconnected">
+                  <Label fx:id="connectedLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="123.0" text="DISCONNECTED" textAlignment="CENTER" textFill="RED">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
@@ -63,9 +71,9 @@
                   <Button mnemonicParsing="false" onAction="#handleResetButton" prefHeight="34.0" prefWidth="90.0" text="Reset" />
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefWidth="150.0" spacing="20.0">
+            <VBox alignment="TOP_CENTER" minHeight="440.0" minWidth="150.0" spacing="20.0">
                <children>
-                  <TextField fx:id="playerTwoTxtField" promptText="Player 2">
+                  <TextField fx:id="playerTwoTxtField" prefWidth="25.0" promptText="Player 2" styleClass="playerName">
                      <font>
                         <Font size="13.0" />
                      </font>
@@ -73,17 +81,25 @@
                         <Insets left="5.0" right="5.0" top="20.0" />
                      </VBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" onAction="#handleUpdatePlayer2Name" prefHeight="25.0" prefWidth="85.0" text="Update">
+                  <Button mnemonicParsing="false" onAction="#handleUpdatePlayer2Name" prefHeight="30.0" prefWidth="68.0" text="Update">
                      <VBox.margin>
-                        <Insets bottom="60.0" top="-10.0" />
+                        <Insets bottom="10.0" top="-10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#handleRightUpButton" prefHeight="57.0" prefWidth="66.0" text="+">
+                  <Label fx:id="counterRightLabel" alignment="CENTER" prefHeight="30.0" prefWidth="30.0" styleClass="scoreLabel" text="20" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#handleRightUpButton" prefHeight="68.0" prefWidth="68.0" styleClass="sbGameLabel" text="+" textAlignment="CENTER">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#handleRightDownButton" prefHeight="57.0" prefWidth="66.0" text="-">
+                  <Button mnemonicParsing="false" onAction="#handleRightDownButton" prefHeight="68.0" prefWidth="68.0" styleClass="sbGameLabel" text="-" textAlignment="CENTER">
                      <font>
                         <Font size="25.0" />
                      </font>

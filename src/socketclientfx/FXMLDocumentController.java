@@ -83,15 +83,15 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void connect() {
-        socket = new FxSocketClient(new FxSocketListener(), "raspberrypi.local", Integer.valueOf("55555"), Constants.instance().DEBUG_NONE);
+        socket = new FxSocketClient(new FxSocketListener(), "localhost", Integer.valueOf("55555"), Constants.instance().DEBUG_NONE);
         socket.connect();
     }
 
     private void autoConnect() {
         new Thread() {
             @Override
-            public void run() {
-                    if (!isConnected()) {
+            public void run() { 
+                   if (!isConnected()) {
                         socket = new FxSocketClient(new FxSocketListener(), "localhost", 55555, Constants.instance().DEBUG_NONE);
                         socket.connect();
                     }
