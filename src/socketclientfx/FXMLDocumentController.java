@@ -45,11 +45,10 @@ public class FXMLDocumentController implements Initializable {
     }
     
     public enum Cmd {
-        LUP, LDOWN, RUP, RDOWN, RESET, SWITCH, SCHANGE, NEXT, GAME11, GAME21, PLLEFT, PLRIGHT
+        LUP, LDOWN, RUP, RDOWN, RESET, SWITCH, SCHANGE, NEXT, GAME11, GAME21, PLLEFTNAME, PLRIGHTNAME, GAMETYPE, PLCOUNTLEFT, PLCOUNTRIGHT
     }
 
     private FxSocketClient socket;
-
     /*
      * Synchronized method set up to wait until there is no socket connection.
      * When notifyDisconnected() is called, waiting will cease.
@@ -181,21 +180,30 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void UpdateScore(String line) {
-        String[] score, msg;
+        String[] msg;
         if(line != null && line.contains(";")){
             msg = line.split(";");
             
-            if(!msg[0].isEmpty() && msg[0].contains(":")){
-                score = msg[0].split(":");
-                if(score[0].equalsIgnoreCase("LP")){
-                    counterLeftLabel.setText(score[1]);
-                }
-            }
-            
-            if(!msg[1].isEmpty() && msg[1].contains(":")){
-                score = msg[1].split(":");
-                if(score[0].equalsIgnoreCase("RP")){
-                    counterRightLabel.setText(score[1]);
+            for(int i = 0; i < msg.length; i++){
+                String[] data = msg[i].split(":");
+                Cmd cmd = Cmd.valueOf(data[0]);
+                
+                switch(cmd){
+                    case PLCOUNTLEFT:
+                        counterLeftLabel.setText(data[1]);
+                        break;
+                    case PLCOUNTRIGHT:
+                        counterRightLabel.setText(data[1]);
+                        break;
+                    case GAMETYPE:
+                        break;
+                    case PLLEFTNAME:
+                        playerOneTxtField.setText(data[1]);
+                        break;
+                    case PLRIGHTNAME:
+                        playerTwoTxtField.setText(data[1]);
+                    default:
+                        LOGGER.log(Level.WARNING,data[1]);  
                 }
             }
         }
@@ -296,12 +304,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleUpdatePlayer1Name(ActionEvent event) {
         String name = playerOneTxtField.getText();
-        socket.sendMessage(Cmd.PLLEFT.name() + ":" + name);
+        socket.sendMessage(Cmd.PLLEFTNAME.name() + ":" + name);
     }
     
     @FXML
     private void handleUpdatePlayer2Name(ActionEvent event) {
         String name = playerTwoTxtField.getText();
-        socket.sendMessage(Cmd.PLRIGHT + ":" + name);
+        socket.sendMessage(Cmd.PLRIGHTNAME + ":" + name);
     }
 }
